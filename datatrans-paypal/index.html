@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://pay.sandbox.datatrans.com/upp/payment/js/paypal-button-1.0.0.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <link rel="stylesheet" href="css/paypal.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#213d62">
+  <link rel="shortcut icon" href="icons/favicon.ico">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+  <title>Payment Button Showcase</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="columns ">
+      <header class="navbar">
+        <section class="navbar-section">
+          <a href="#intro" class="btn btn-link">Introduction</a>
+          <a href="#howto" class="btn btn-link">How it works</a>
+          <a href="#reference" class="btn btn-link">Reference</a>
+        </section>
+      </header>
+    </div>
+
+    <div class="columns">
+      <div class="col-12 column">
+        <div class="content">
+          <div class="intro" id="intro">
+            <h2>Datatrans PayPal Button </h2>
+            <p>This library is meant to support Datatrans merchants in rendering the <a
+                href="https://developer.paypal.com/docs/checkout/">PayPal Smart Button </a>. It acts as a wrapper and
+              implements all required operations for checkout with PayPal directly from the merchant checkout page.
+            </p>
+          </div>
+          <div class="divider"></div>
+          <div class="demo" id="demo">
+            <h3>Configure and test the example </h3>
+            <div class="columns">
+              <div class="col-md-6 col-xs-12 column">
+                <form class="form-horizontal" id="configForm">
+                  <div class="form-group col-xs-6 col-4">
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="createAlias">
+                      <i class="form-icon"></i> Create Alias
+                    </label>
+                  </div>
+                  <div class="form-group col-xs-6 col-4">
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="requestAddress">
+                      <i class="form-icon"></i> Request Address
+                    </label>
+                  </div>
+                  <div class="form-group col-xs-6 col-4">
+                    <label class="form-switch form-inline">
+                      <input type="checkbox" id="payLater">
+                      <i class="form-icon"></i> Enable pay later
+                    </label>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label" for="amount">Amount</label>
+                    <input class="form-input" type="text" pattern="[0-9]*" id="amount" placeholder="100">
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label" for="currency">Currency</label>
+                    <select class="form-select" id="currency">
+                      <option value="CHF">CHF</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                    </select>
+                  </div>
+                </form>
+
+
+
+              </div>
+
+              <div class="column col-md-5 col-xs-12">
+                <h4>Events output</h4>
+                <div class="empty console">
+                  <div class="console-content"></div>
+                  <i id="clearButton" class="icon icon-2x icon-delete" style="float: right;"></i>
+                </div>
+                <div class="divider"></div>
+                <div id="paybutton"></div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="divider"></div>
+          <div class="howto" id="howto">
+            <h2>How it works</h2>
+            <div class="columns">
+              <div class="col-12 column">
+                <h4>1) Initialize the library</h4>
+                <pre class="code" data-lang="JS">
+                  <code>
+&lt;script src="https://pay.sandbox.datatrans.com/upp/payment/js/paypal-button-1.0.0.js" type="text/javascript"&gt;&lt;/script&gt;</code>
+                </pre>
+                <pre class="code" data-lang="JS">
+                  <code>
+PayPalButton.init({
+ merchantId: '1110017543',
+ reqType: 'NOA',
+ currencyCode: 'CHF',
+ amount: '100',
+ createAlias: false
+});
+                  </code>
+                </pre>
+              </div>
+              <div class="col-12 column">
+                <h4>2) Listen for the init event and create the button</h4>
+                <pre class="code" data-lang="JS">
+                  <code>
+const configuration = {
+ paypaloptions: {
+   button: {
+    layout: 'vertical',
+    color: 'blue',
+    shape: 'rect',
+    label: 'paypal'
+   }
+  }, 
+  transaction: { 
+   refno: myReferenceNumber,
+   authenticationOnly: true,
+   returnAddress: true 
+  }
+}
+                
+PayPalButton.on("init", function () {
+ PayPalButton.create(document.getElementById("paypalbutton"), configuration);
+})
+                  </code>
+                </pre>
+              </div>
+              <div class="col-12 column">
+                <h4>3) Listen for the authorization event and continue</h4>
+                <pre class="code" data-lang="JS">
+                    <code>
+PayPalButton.on("authorization", function (data) {
+  // handle transaction result
+});
+                    </code>
+                  </pre>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div>
+              <h2>Reference</h2>
+              <div class="columns reference" id="reference">
+                <div class="col-md-6 col-xs-12 column">
+                  <h4>Events</h4>
+                  Following events will be emitted by the library
+                  <ul>
+                    <li><b>init</b> - emitted when the library is initialized and ready to use</li>
+                    <li><b>create</b> - emitted when payment button is rendered</li>
+                    <li><b>authorization</b> - emitted when an authorization response has been received -
+                      <b>payload:</b>
+                      authorization response
+                    </li>
+                    <li><b>error</b> - emitted when an error occurs - <b>&lt;optional&gt;payload:</b> error message</li>
+                  </ul>
+                </div>
+                <div class="col-md-6 col-xs-12 column">
+                  <h4>Options and parameters</h4>
+                  <table class="table table-scroll">
+                    <tr>
+                      <th>Option</th>
+                      <th colspan="2">Description</th>
+                      <th>Data type</th>
+                    </tr>
+                    <tr>
+                      <td>merchantId</td>
+                      <td colspan="2">Your datatrans merchantId</td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <td>currencyCode</td>
+                      <td colspan="2">Transaction Currency, 3 letter currency code (ISO 4217)
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <td>amount</td>
+                      <td colspan="2">Transaction Amount
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <td>reqtype</td>
+                      <td colspan="2">Request type NOA (direct debit) or NOA (authorization)
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <td>createAlias</td>
+                      <td colspan="2">Whether to create an alias (only allowed for zero amount authorizations)
+                      </td>
+                      <td>boolean</td>
+                    </tr>
+                    <tr>
+                      <td>paypalMerchantId</td>
+                      <td colspan="2">Your paypal merchant id
+                      </td>
+                      <td>boolean</td>
+                    </tr>
+                    <tr>
+                      <td>enablePayLater</td>
+                      <td colspan="2">Enable PayPal pay later (default:false)
+                      </td>
+                      <td>boolean</td>
+                    </tr>
+                    <tr>
+                      <td>buyerCountry</td>
+                      <td colspan="2">Set the buyer country (iso-alpha-2) for test purposes (sandbox only)
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <td>PayPal Options</td>
+                      <td colspan="2">Button styling configuration see <a
+                          href="https://developer.paypal.com/docs/checkout/integration-features/customize-button/">Customize
+                          the PayPal buttons</a>
+                      </td>
+                      <td>Object</td>
+                    </tr>
+                    <tr>
+                      <td rowspan="4">Transaction Object</td>
+                      <th>Option</th>
+                      <th>Description</th>
+                      <th>Type</th>
+                    </tr>
+                    <tr>
+                      <td>refno</td>
+                      <td>Your reference number. Find out more <a
+                          href="https://api-reference.datatrans.ch/#mandatory-parameters">here</a>
+                      </td>
+                      <td>String</td>
+                    </tr>
+                    <tr>
+                      <td>returnAddress</td>
+                      <td>Whether to return the customer address to the Webhook
+                      </td>
+                      <td>boolean</td>
+                    </tr>
+                    <tr>
+                      <td>authenticationOnly</td>
+                      <td>Only authenticate the transaction (used for deferred authorization)
+                      </td>
+                      <td>boolean</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <script>
+
+      let amount = '100';
+      let currency = "CHF";
+      let requestAddress = false;
+      let createAlias = false;
+      let buyerCountry = "DE"
+      let enablePayLater = false;
+
+      const paypalConfig = {
+        paypaloptions: {
+
+        },
+        transaction: {
+          refno: 'rand' + new Date().getTime(),
+          authenticationOnly: true,
+          returnAddress: requestAddress
+        }
+      }
+
+      $(document).ready(function () {
+        $("#configForm").change(function (data) {
+
+          if (data.target.id === "amount") {
+            amount = data.target.value;
+
+            PayPalButton.init({
+              merchantId: '1110017543',
+              reqType: 'NOA',
+              currencyCode: currency,
+              amount: amount,
+              createAlias: createAlias
+            });
+          }
+
+          if (data.target.id === "currency") {
+            currency = data.target.value;
+
+            PayPalButton.init({
+              merchantId: '1110017543',
+              reqType: 'NOA',
+              currencyCode: currency,
+              amount: amount,
+              createAlias: createAlias
+            });
+          }
+
+          if (data.target.id === "createAlias") {
+            createAlias = data.target.checked;
+            amount = "0";
+            document.getElementById('amount').value = "0";
+
+            PayPalButton.init({
+              merchantId: '1110017543',
+              reqType: 'NOA',
+              currencyCode: currency,
+              amount: amount,
+              createAlias: createAlias
+            });
+          }
+
+          if (data.target.id === "payLater") {
+            enablePayLater = data.target.checked;
+           
+
+            PayPalButton.init({
+              merchantId: '1110017543',
+              reqType: 'NOA',
+              currencyCode: currency,
+              amount: amount,
+              createAlias: createAlias,
+              enablePayLater: enablePayLater,
+              buyerCountry: buyerCountry,
+              paypalMerchantId:"PTSMZTZ978TUU"
+            });
+          }
+
+          if (data.target.id === "requestAddress") {
+            requestAddress = data.target.checked;
+            PayPalButton.init({
+              merchantId: '1110017543',
+              reqType: 'NOA',
+              currencyCode: currency,
+              amount: amount,
+              createAlias: createAlias
+            });
+          }
+
+        });
+
+        PayPalButton.init({
+          merchantId: '1110017543',
+          reqType: 'NOA',
+          currencyCode: currency,
+          amount: amount,
+          createAlias: createAlias
+        });
+
+        $("#clearButton").click(function () {
+          $(".console-content").empty();
+        });
+
+      });
+
+      PayPalButton.on("init", function () { appendToConsole("init event dispatched <br>"); PayPalButton.create(document.getElementById('paybutton'), paypalConfig) });
+      PayPalButton.on("create", function () { appendToConsole("create event dispatched <br>") });
+      PayPalButton.on("authorization", function (response) {
+        appendToConsole("authorization response:" + "<br>" + JSON.stringify(response) + "<br>");
+      });
+      PayPalButton.on("error", function (error) {
+        
+        $("#paybutton").empty();
+          createAlias = false;
+          amount = "100";
+          document.getElementById("amount").value = "100"
+          document.getElementById("createAlias").checked = false;
+          PayPalButton.init({
+            merchantId: '1110017543',
+            reqType: 'NOA',
+            currencyCode: currency,
+            amount: amount,
+            createAlias: createAlias
+          });
+          appendToConsole("Error:" + JSON.stringify(error) + "<br>")
+      });
+
+      function appendToConsole(content){
+        $(".console-content").append(content);
+      }
+    </script>
+</body>
