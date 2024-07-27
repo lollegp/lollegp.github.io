@@ -133,7 +133,7 @@ const configuration = {
   }, 
   transaction: { 
    refno: myReferenceNumber,
-   authenticationOnly: false,
+   authenticationOnly: true,
    returnAddress: true 
   }
 }
@@ -290,7 +290,7 @@ PayPalButton.on("authorization", function (data) {
         },
         transaction: {
           refno: 'rand' + new Date().getTime(),
-          authenticationOnly: false,
+          authenticationOnly: true,
           returnAddress: requestAddress
         }
       }
