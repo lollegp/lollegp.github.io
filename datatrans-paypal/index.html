@@ -291,7 +291,7 @@ PayPalButton.on("authorization", function (data) {
         },
         transaction: {
           refno: 'rand' + new Date().getTime(),
-          authenticationOnly: false,
+          authenticationOnly: true,
           returnAddress: requestAddress
         }
       }
@@ -308,11 +308,7 @@ PayPalButton.on("authorization", function (data) {
               currencyCode: currency,
               amount: amount,
               createAlias: createAlias,
-              PAP: { 'createOrder': true },
-              transaction: { 
-               refno: 'abc',
-               authenticationOnly: true
-            }
+              PAP: { 'createOrder': true }
             });
           }
 
@@ -325,11 +321,7 @@ PayPalButton.on("authorization", function (data) {
               currencyCode: currency,
               amount: amount,
               createAlias: createAlias,
-              PAP: { 'createOrder': true },
-              transaction: { 
-               refno: 'abc',
-               authenticationOnly: true
-            }
+              PAP: { 'createOrder': true }
             });
           }
 
@@ -344,11 +336,7 @@ PayPalButton.on("authorization", function (data) {
               currencyCode: currency,
               amount: amount,
               createAlias: createAlias,
-              PAP: { 'createOrder': true },
-              transaction: { 
-               refno: 'abc',
-               authenticationOnly: true
-            }
+              PAP: { 'createOrder': true }
             });
           }
 
@@ -387,11 +375,7 @@ PayPalButton.on("authorization", function (data) {
           currencyCode: currency,
           amount: amount,
           createAlias: createAlias,
-          PAP: { 'createOrder': true },
-          transaction: { 
-               refno: 'abc',
-               authenticationOnly: true
-            }
+          PAP: { 'createOrder': true }
         });
 
         $("#clearButton").click(function () {
@@ -418,11 +402,7 @@ PayPalButton.on("authorization", function (data) {
             currencyCode: currency,
             amount: amount,
             createAlias: createAlias,
-            PAP: { 'createOrder': true },
-            transaction: { 
-               refno: 'abc',
-               authenticationOnly: true
-            }
+            PAP: { 'createOrder': true }
           });
           appendToConsole("Error:" + JSON.stringify(error) + "<br>")
       });
