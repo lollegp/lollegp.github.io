@@ -309,6 +309,10 @@ PayPalButton.on("authorization", function (data) {
               amount: amount,
               createAlias: createAlias,
               PAP: { 'createOrder': true },
+              transaction: { 
+               refno: 'abc',
+               authenticationOnly: true
+            }
             });
           }
 
@@ -321,7 +325,11 @@ PayPalButton.on("authorization", function (data) {
               currencyCode: currency,
               amount: amount,
               createAlias: createAlias,
-               PAP: { 'createOrder': true },
+              PAP: { 'createOrder': true },
+              transaction: { 
+               refno: 'abc',
+               authenticationOnly: true
+            }
             });
           }
 
@@ -337,6 +345,10 @@ PayPalButton.on("authorization", function (data) {
               amount: amount,
               createAlias: createAlias,
               PAP: { 'createOrder': true },
+              transaction: { 
+               refno: 'abc',
+               authenticationOnly: true
+            }
             });
           }
 
@@ -376,6 +388,10 @@ PayPalButton.on("authorization", function (data) {
           amount: amount,
           createAlias: createAlias,
           PAP: { 'createOrder': true },
+          transaction: { 
+               refno: 'abc',
+               authenticationOnly: true
+            }
         });
 
         $("#clearButton").click(function () {
@@ -403,6 +419,10 @@ PayPalButton.on("authorization", function (data) {
             amount: amount,
             createAlias: createAlias,
             PAP: { 'createOrder': true },
+            transaction: { 
+               refno: 'abc',
+               authenticationOnly: true
+            }
           });
           appendToConsole("Error:" + JSON.stringify(error) + "<br>")
       });
