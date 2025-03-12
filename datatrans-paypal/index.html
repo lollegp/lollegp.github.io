@@ -303,11 +303,12 @@ PayPalButton.on("authorization", function (data) {
             amount = data.target.value;
 
             PayPalButton.init({
-              merchantId: '1110017543',
+              merchantId: '1110017767',
               reqType: 'NOA',
               currencyCode: currency,
               amount: amount,
-              createAlias: createAlias
+              createAlias: createAlias,
+              PAP: { 'createOrder': true },
             });
           }
 
@@ -315,11 +316,12 @@ PayPalButton.on("authorization", function (data) {
             currency = data.target.value;
 
             PayPalButton.init({
-              merchantId: '1110017543',
+              merchantId: '1110017767',
               reqType: 'NOA',
               currencyCode: currency,
               amount: amount,
-              createAlias: createAlias
+              createAlias: createAlias,
+               PAP: { 'createOrder': true },
             });
           }
 
@@ -329,11 +331,12 @@ PayPalButton.on("authorization", function (data) {
             document.getElementById('amount').value = "0";
 
             PayPalButton.init({
-              merchantId: '1110017543',
+              merchantId: '1110017767',
               reqType: 'NOA',
               currencyCode: currency,
               amount: amount,
-              createAlias: createAlias
+              createAlias: createAlias,
+              PAP: { 'createOrder': true },
             });
           }
 
@@ -342,7 +345,7 @@ PayPalButton.on("authorization", function (data) {
            
 
             PayPalButton.init({
-              merchantId: '1110017543',
+              merchantId: '1110017767',
               reqType: 'NOA',
               currencyCode: currency,
               amount: amount,
@@ -356,7 +359,7 @@ PayPalButton.on("authorization", function (data) {
           if (data.target.id === "requestAddress") {
             requestAddress = data.target.checked;
             PayPalButton.init({
-              merchantId: '1110017543',
+              merchantId: '1110017767',
               reqType: 'NOA',
               currencyCode: currency,
               amount: amount,
@@ -367,11 +370,12 @@ PayPalButton.on("authorization", function (data) {
         });
 
         PayPalButton.init({
-          merchantId: '1110017543',
+          merchantId: '1110017767',
           reqType: 'NOA',
           currencyCode: currency,
           amount: amount,
-          createAlias: createAlias
+          createAlias: createAlias,
+          PAP: { 'createOrder': true },
         });
 
         $("#clearButton").click(function () {
@@ -393,11 +397,12 @@ PayPalButton.on("authorization", function (data) {
           document.getElementById("amount").value = "100"
           document.getElementById("createAlias").checked = false;
           PayPalButton.init({
-            merchantId: '1110017543',
+            merchantId: '1110017767',
             reqType: 'NOA',
             currencyCode: currency,
             amount: amount,
-            createAlias: createAlias
+            createAlias: createAlias,
+            PAP: { 'createOrder': true },
           });
           appendToConsole("Error:" + JSON.stringify(error) + "<br>")
       });
